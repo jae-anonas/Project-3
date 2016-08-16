@@ -27,6 +27,10 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Load fragment with data
+        Fragment fragment = ArticlesHome.newInstance("home");
+        replaceFragment(fragment);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +48,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     @Override
@@ -87,31 +97,118 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-            fragment = ArticlesHome.newInstance("Yey!");
-        } else if (id == R.id.nav_search) {
-            intent = new Intent(this, SearchActivity.class);
-        } else if (id == R.id.nav_bookmarks) {
-            intent = new Intent(this, BookmarksActivity.class);
-        } else if (id == R.id.nav_saved) {
-            intent = new Intent(this, SavedArticlesActivity.class);
-        } else if (id == R.id.nav_section_all) {
-            fragment = ArticlesHome.newInstance("home");
-        } else if (id == R.id.nav_section_opinion) {
-            fragment = ArticlesHome.newInstance("opinion");
+        switch(id){
+            case R.id.nav_home:
+                fragment = ArticlesHome.newInstance("home");
+                break;
+            case R.id.nav_search:
+                intent = new Intent(this, SearchActivity.class);
+                break;
+            case R.id.nav_bookmarks:
+                intent = new Intent(this, BookmarksActivity.class);
+                break;
+            case R.id.nav_saved:
+                intent = new Intent(this, SavedArticlesActivity.class);
+                break;
+            case R.id.nav_section_all:
+                fragment = ArticlesHome.newInstance("home");
+                break;
+            case R.id.nav_section_opinion:
+                fragment = ArticlesHome.newInstance("opinion");
+                break;
+            case R.id.nav_section_world:
+                fragment = ArticlesHome.newInstance("world");
+                break;
+            case R.id.nav_section_national:
+                fragment = ArticlesHome.newInstance("national");
+                break;
+            case R.id.nav_section_politics:
+                fragment = ArticlesHome.newInstance("politics");
+                break;
+            case R.id.nav_section_upshot:
+                fragment = ArticlesHome.newInstance("upshot");
+                break;
+            case R.id.nav_section_nyregion:
+                fragment = ArticlesHome.newInstance("nyregion");
+                break;
+            case R.id.nav_section_business:
+                fragment = ArticlesHome.newInstance("business");
+                break;
+            case R.id.nav_section_tech:
+                fragment = ArticlesHome.newInstance("technology");
+                break;
+            case R.id.nav_section_science:
+                fragment = ArticlesHome.newInstance("science");
+                break;
+            case R.id.nav_section_health:
+                fragment = ArticlesHome.newInstance("health");
+                break;
+            case R.id.nav_section_sports:
+                fragment = ArticlesHome.newInstance("sports");
+                break;
+            case R.id.nav_section_arts:
+                fragment = ArticlesHome.newInstance("arts");
+                break;
+            case R.id.nav_section_books:
+                fragment = ArticlesHome.newInstance("books");
+                break;
+            case R.id.nav_section_movies:
+                fragment = ArticlesHome.newInstance("movies");
+                break;
+            case R.id.nav_section_theater:
+                fragment = ArticlesHome.newInstance("theater");
+                break;
+            case R.id.nav_section_sunday:
+                fragment = ArticlesHome.newInstance("sundayreview");
+                break;
+            case R.id.nav_section_fashion:
+                fragment = ArticlesHome.newInstance("fashion");
+                break;
+            case R.id.nav_section_magazine:
+                fragment = ArticlesHome.newInstance("magazine");
+                break;
+            case R.id.nav_section_food:
+                fragment = ArticlesHome.newInstance("food");
+                break;
+            case R.id.nav_section_travel:
+                fragment = ArticlesHome.newInstance("travel");
+                break;
+            case R.id.nav_section_realestate:
+                fragment = ArticlesHome.newInstance("realestate");
+                break;
+            case R.id.nav_section_auto:
+                fragment = ArticlesHome.newInstance("automobiles");
+                break;
+            case R.id.nav_section_obituaries:
+                fragment = ArticlesHome.newInstance("obituaries");
+                break;
+            case R.id.nav_section_insider:
+                fragment = ArticlesHome.newInstance("insider");
+                break;
+
         }
-
-
+//
+//        if (id == R.id.nav_home) {
+//            // Handle the camera action
+//            fragment = ArticlesHome.newInstance("home");
+//        } else if (id == R.id.nav_search) {
+//            intent = new Intent(this, SearchActivity.class);
+//        } else if (id == R.id.nav_bookmarks) {
+//            intent = new Intent(this, BookmarksActivity.class);
+//        } else if (id == R.id.nav_saved) {
+//            intent = new Intent(this, SavedArticlesActivity.class);
+//        } else if (id == R.id.nav_section_all) {
+//            fragment = ArticlesHome.newInstance("home");
+//        } else if (id == R.id.nav_section_opinion) {
+//            fragment = ArticlesHome.newInstance("opinion");
+//        }
 
         if(intent != null){
             startActivity(intent);
         }
 
         if(fragment != null){
-            fragmentManager.beginTransaction()
-                    .replace(R.id.nav_content, fragment)
-                    .commit();
+            replaceFragment(fragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -121,6 +218,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if(fragment != null){
+            fragmentManager.beginTransaction()
+                    .replace(R.id.nav_content, fragment)
+                    .commit();
+        }
 
     }
 }

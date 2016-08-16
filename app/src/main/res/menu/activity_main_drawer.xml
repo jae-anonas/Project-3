@@ -38,6 +38,66 @@
             <item
                 android:id="@+id/nav_section_politics"
                 android:title="Politics" />
+            <item
+                android:id="@+id/nav_section_upshot"
+                android:title="Upshot" />
+            <item
+                android:id="@+id/nav_section_nyregion"
+                android:title="NY Region" />
+            <item
+                android:id="@+id/nav_section_business"
+                android:title="Business" />
+            <item
+                android:id="@+id/nav_section_tech"
+                android:title="Technology" />
+            <item
+                android:id="@+id/nav_section_science"
+                android:title="Science" />
+            <item
+                android:id="@+id/nav_section_health"
+                android:title="Health" />
+            <item
+                android:id="@+id/nav_section_sports"
+                android:title="Sports" />
+            <item
+                android:id="@+id/nav_section_arts"
+                android:title="Arts" />
+            <item
+                android:id="@+id/nav_section_books"
+                android:title="Books" />
+            <item
+                android:id="@+id/nav_section_movies"
+                android:title="Movies" />
+            <item
+                android:id="@+id/nav_section_theater"
+                android:title="Theater" />
+            <item
+                android:id="@+id/nav_section_sunday"
+                android:title="Sunday Review" />
+            <item
+                android:id="@+id/nav_section_fashion"
+                android:title="Fashion" />
+            <item
+                android:id="@+id/nav_section_magazine"
+                android:title="Magazine" />
+            <item
+                android:id="@+id/nav_section_food"
+                android:title="Food" />
+            <item
+                android:id="@+id/nav_section_travel"
+                android:title="Travel" />
+            <item
+                android:id="@+id/nav_section_realestate"
+                android:title="Real Estate" />
+            <item
+                android:id="@+id/nav_section_auto"
+                android:title="Automobiles" />
+            <item
+                android:id="@+id/nav_section_obituaries"
+                android:title="Obituaries" />
+            <item
+                android:id="@+id/nav_section_insider"
+                android:title="Insider" />
         </menu>
     </item>
 

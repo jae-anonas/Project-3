@@ -30,3 +30,7 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
 </menu>
+
+<!--
+    app:actionProviderClass=
+    "android.support.v7.widget.ShareActionProvider"-->
