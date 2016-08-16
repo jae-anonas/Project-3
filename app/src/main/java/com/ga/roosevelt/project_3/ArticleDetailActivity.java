@@ -25,9 +25,6 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
         url = getIntent().getStringExtra("URL");
 
-        TextView txt = (TextView) findViewById(R.id.txtUrl);
-        txt.setText(url);
-
         WebView webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());

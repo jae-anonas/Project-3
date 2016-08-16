@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +21,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ArticlesHome.OnFragmentInteractionListener {
+    ViewPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +31,12 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         //Load fragment with data
-        Fragment fragment = ArticlesHome.newInstance("home");
-        replaceFragment(fragment);
+//        Fragment fragment = ArticlesHome.newInstance("home");
+//        replaceFragment(fragment);
+
+
+        pager = (ViewPager) findViewById(R.id.sectionViewPager);
+        pager.setAdapter(new SectionPagerAdapter(getSupportFragmentManager()));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -50,11 +57,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
 
     @Override
     public void onBackPressed() {
@@ -90,6 +92,247 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+//        Fragment fragment = null;
+        Intent intent = null;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        switch(id){
+            case R.id.nav_home:
+                pager.setCurrentItem(0, true);
+                break;
+            case R.id.nav_search:
+                intent = new Intent(this, SearchActivity.class);
+                break;
+            case R.id.nav_bookmarks:
+                intent = new Intent(this, BookmarksActivity.class);
+                break;
+            case R.id.nav_saved:
+                intent = new Intent(this, SavedArticlesActivity.class);
+                break;
+            case R.id.nav_section_all:
+                pager.setCurrentItem(0, true);
+                break;
+            case R.id.nav_section_opinion:
+                pager.setCurrentItem(1, true);
+                break;
+            case R.id.nav_section_world:
+                pager.setCurrentItem(2, true);
+                break;
+            case R.id.nav_section_national:
+                pager.setCurrentItem(3, true);
+                break;
+            case R.id.nav_section_politics:
+                pager.setCurrentItem(4, true);
+                break;
+            case R.id.nav_section_upshot:
+                pager.setCurrentItem(5, true);
+                break;
+            case R.id.nav_section_nyregion:
+                pager.setCurrentItem(6, true);
+                break;
+            case R.id.nav_section_business:
+                pager.setCurrentItem(7, true);
+                break;
+            case R.id.nav_section_tech:
+                pager.setCurrentItem(8, true);
+                break;
+            case R.id.nav_section_science:
+                pager.setCurrentItem(9, true);
+                break;
+            case R.id.nav_section_health:
+                pager.setCurrentItem(10, true);
+                break;
+            case R.id.nav_section_sports:
+                pager.setCurrentItem(11, true);
+                break;
+            case R.id.nav_section_arts:
+                pager.setCurrentItem(12, true);
+                break;
+            case R.id.nav_section_books:
+                pager.setCurrentItem(13, true);
+                break;
+            case R.id.nav_section_movies:
+                pager.setCurrentItem(14, true);
+                break;
+            case R.id.nav_section_theater:
+                pager.setCurrentItem(15, true);
+                break;
+            case R.id.nav_section_sunday:
+                pager.setCurrentItem(16, true);
+                break;
+            case R.id.nav_section_fashion:
+                pager.setCurrentItem(17, true);
+                break;
+            case R.id.nav_section_magazine:
+                pager.setCurrentItem(18, true);
+                break;
+            case R.id.nav_section_food:
+                pager.setCurrentItem(19, true);
+                break;
+            case R.id.nav_section_travel:
+                pager.setCurrentItem(20, true);
+                break;
+            case R.id.nav_section_realestate:
+                pager.setCurrentItem(21, true);
+                break;
+            case R.id.nav_section_auto:
+                pager.setCurrentItem(22, true);
+                break;
+            case R.id.nav_section_obituaries:
+                pager.setCurrentItem(23, true);
+                break;
+            case R.id.nav_section_insider:
+                pager.setCurrentItem(24, true);
+                break;
+
+        }
+//
+//        if (id == R.id.nav_home) {
+//            // Handle the camera action
+//            fragment = ArticlesHome.newInstance("home");
+//        } else if (id == R.id.nav_search) {
+//            intent = new Intent(this, SearchActivity.class);
+//        } else if (id == R.id.nav_bookmarks) {
+//            intent = new Intent(this, BookmarksActivity.class);
+//        } else if (id == R.id.nav_saved) {
+//            intent = new Intent(this, SavedArticlesActivity.class);
+//        } else if (id == R.id.nav_section_all) {
+//            fragment = ArticlesHome.newInstance("home");
+//        } else if (id == R.id.nav_section_opinion) {
+//            fragment = ArticlesHome.newInstance("opinion");
+//        }
+
+        if(intent != null){
+            startActivity(intent);
+        }
+
+//        if(fragment != null){
+//            replaceFragment(fragment);
+//        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    public class SectionPagerAdapter extends FragmentPagerAdapter{
+
+        public SectionPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = null;
+
+            switch(position){
+                case 0:
+                    fragment = ArticlesHome.newInstance("home");
+                    break;
+                case 1:
+                    fragment = ArticlesHome.newInstance("opinion");
+                    break;
+                case 2:
+                    fragment = ArticlesHome.newInstance("world");
+                    break;
+                case 3:
+                    fragment = ArticlesHome.newInstance("national");
+                    break;
+                case 4:
+                    fragment = ArticlesHome.newInstance("politics");
+                    break;
+                case 5:
+                    fragment = ArticlesHome.newInstance("upshot");
+                    break;
+                case 6:
+                    fragment = ArticlesHome.newInstance("nyregion");
+                    break;
+                case 7:
+                    fragment = ArticlesHome.newInstance("business");
+                    break;
+                case 8:
+                    fragment = ArticlesHome.newInstance("technology");
+                    break;
+                case 9:
+                    fragment = ArticlesHome.newInstance("science");
+                    break;
+                case 10:
+                    fragment = ArticlesHome.newInstance("health");
+                    break;
+                case 11:
+                    fragment = ArticlesHome.newInstance("sports");
+                    break;
+                case 12:
+                    fragment = ArticlesHome.newInstance("arts");
+                    break;
+                case 13:
+                    fragment = ArticlesHome.newInstance("books");
+                    break;
+                case 14:
+                    fragment = ArticlesHome.newInstance("movies");
+                    break;
+                case 15:
+                    fragment = ArticlesHome.newInstance("theater");
+                    break;
+                case 16:
+                    fragment = ArticlesHome.newInstance("sundayreview");
+                    break;
+                case 17:
+                    fragment = ArticlesHome.newInstance("fashion");
+                    break;
+                case 18:
+                    fragment = ArticlesHome.newInstance("magazine");
+                    break;
+                case 19:
+                    fragment = ArticlesHome.newInstance("food");
+                    break;
+                case 20:
+                    fragment = ArticlesHome.newInstance("travel");
+                    break;
+                case 21:
+                    fragment = ArticlesHome.newInstance("realestate");
+                    break;
+                case 22:
+                    fragment = ArticlesHome.newInstance("automobiles");
+                    break;
+                case 23:
+                    fragment = ArticlesHome.newInstance("obituaries");
+                    break;
+                case 24:
+                    fragment = ArticlesHome.newInstance("insider");
+                    break;
+            }
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return 25;
+        }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if(fragment != null){
+            fragmentManager.beginTransaction()
+                    .replace(R.id.nav_content, fragment)
+                    .commit();
+        }
+
+    }
+}
+
+
+/*
+
     public boolean onNavigationItemSelected(MenuItem item) {
         Fragment fragment = null;
         Intent intent = null;
@@ -215,19 +458,4 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        if(fragment != null){
-            fragmentManager.beginTransaction()
-                    .replace(R.id.nav_content, fragment)
-                    .commit();
-        }
-
-    }
-}
+ */

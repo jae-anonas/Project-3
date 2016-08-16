@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.ga.roosevelt.project_3.ArticleDetailActivity;
 import com.ga.roosevelt.project_3.R;
 import com.ga.roosevelt.project_3.models.search_result.SearchResult;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,7 +36,23 @@ public class SearchResultRecyclerViewAdapter extends RecyclerView.Adapter<Articl
     public void onBindViewHolder(ArticleViewHolder holder, int position) {
         final SearchResult.Doc article = mSearchResults.get(position);
 
-        holder.setTitle(article.getLeadParagraph());
+        holder.setTitle(article.getHeadline().getMain());
+
+        String imgURL = "";
+
+        //get image url (
+        if (article.getMultimedia().size() > 0){
+            imgURL = article.getMultimedia().get(0).getUrl();
+        }
+
+        //set image
+        if(!imgURL.equals("")){
+            Picasso.with(holder.itemView.getContext())
+                    .load(imgURL)
+                    .into(holder.getImgView());
+        }
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

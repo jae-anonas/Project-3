@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 
 import com.ga.roosevelt.project_3.ArticleDetailActivity;
 import com.ga.roosevelt.project_3.R;
+import com.ga.roosevelt.project_3.models.Multimedium;
 import com.ga.roosevelt.project_3.models.Result;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -36,6 +38,20 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleView
         final Result article = mResultList.get(position);
 
         holder.setTitle(article.getTitle());
+
+        String imgURL = "";
+
+        //get image url (
+        if (article.getMultimedia().size() > 2){
+            imgURL = article.getMultimedia().get(2).getUrl();
+        }
+
+        //set image
+        if(!imgURL.equals("")){
+            Picasso.with(holder.itemView.getContext())
+                    .load(imgURL)
+                    .into(holder.getImgView());
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
