@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search"
+            android:title="Search" />
+        <item
+            android:id="@+id/nav_bookmarks"
+            android:icon="@drawable/ic_bookmark_border"
+            android:title="Bookmarks" />
+        <item
+            android:id="@+id/nav_saved"
+            android:icon="@drawable/ic_cloud_download"
+            android:title="Saved" />
+    </group>
+
+    <item android:title="Top Stories">
+        <menu>
+            <item
+                android:id="@+id/nav_section_all"
+                android:title="Home" />
+
+            <item
+                android:id="@+id/nav_section_opinion"
+                android:title="Opinion" />
+            <item
+                android:id="@+id/nav_section_world"
+                android:title="World" />
+            <item
+                android:id="@+id/nav_section_national"
+                android:title="National" />
+            <item
+                android:id="@+id/nav_section_politics"
+                android:title="Politics" />
+        </menu>
+    </item>
+
+</menu>
