@@ -23,6 +23,8 @@ public class ArticleDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         url = getIntent().getStringExtra("URL");
 
         WebView webView = (WebView) findViewById(R.id.webView);
@@ -44,6 +46,9 @@ public class ArticleDetailActivity extends AppCompatActivity {
         Intent intent = new Intent();
 
         switch(itemId){
+            case android.R.id.home:
+                finish();
+                break;
             case R.id.action_share:
                 Toast.makeText(this, "Sharing", Toast.LENGTH_SHORT).show();
                 intent.setAction(Intent.ACTION_SEND)
