@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -56,7 +57,6 @@ public class ArticlesHome extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment ArticlesHome.
      */
     // TODO: Rename and change types and number of parameters
@@ -74,6 +74,7 @@ public class ArticlesHome extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
+
         getStories(mParam1);
 
     }
@@ -93,15 +94,27 @@ public class ArticlesHome extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mRecyclerView = (RecyclerView) getView().findViewById(R.id.articleRecyclerView);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.articleRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        TextView textView = (TextView) getView().findViewById(R.id.textView);
+        TextView textView = (TextView) view.findViewById(R.id.textView);
         textView.setText(mParam1);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        mRecyclerView = (RecyclerView) getView().findViewById(R.id.articleRecyclerView);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),
+//                LinearLayoutManager.VERTICAL, false);
+//        mRecyclerView.setLayoutManager(linearLayoutManager);
+//
+//        TextView textView = (TextView) getView().findViewById(R.id.textView);
+//        textView.setText(mParam1);
     }
 
     @Override

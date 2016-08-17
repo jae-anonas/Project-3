@@ -52,7 +52,6 @@ public class SearchActivity extends AppCompatActivity {
         // Associate searchable configuration with the SearchView
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        MenuItem menuItem = menu.findItem(R.id.search);
         SearchView searchView =
                 (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
@@ -69,15 +68,12 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-
-        Toast.makeText(SearchActivity.this, "got here intent", Toast.LENGTH_SHORT).show();
         setIntent(intent);
         handleIntent(intent);
     }
 
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            Toast.makeText(SearchActivity.this, "got here intent", Toast.LENGTH_SHORT).show();
             String query = intent.getStringExtra(SearchManager.QUERY);
             searchArticles(query);
         }
@@ -100,6 +96,8 @@ public class SearchActivity extends AppCompatActivity {
             articlesSearch.enqueue(new Callback<SearchResult>() {
                 @Override
                 public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
+
+                    Log.d("iiiiiii", "harambe");
                     if(!response.isSuccessful()){
                         Toast.makeText(SearchActivity.this, "response NOT successful", Toast.LENGTH_SHORT).show();
                         String str = response.message();
@@ -107,6 +105,7 @@ public class SearchActivity extends AppCompatActivity {
                     }
                     try{
 
+//                        Log.d("iiiiiii", "harambe");
                         Toast.makeText(SearchActivity.this, "response IS successful", Toast.LENGTH_SHORT).show();
                         mAdapter = new SearchResultRecyclerViewAdapter(response.body().getResponse().getDocs());
                         mRecyclerView.setAdapter(mAdapter);
@@ -122,45 +121,6 @@ public class SearchActivity extends AppCompatActivity {
 
                 }
             });
-
         }
-
-
     }
-
-    /**
-     protected void getStories(String section){
-     //use .enqueue to get the response.
-     storiesCall.enqueue(new Callback<Articles>() {
-    @Override
-    public void onResponse(Call<Articles> call, Response<Articles> response) {
-    if(!response.isSuccessful()){
-    Toast.makeText(getContext(), "response NOT successful", Toast.LENGTH_SHORT).show();
-    String str = response.toString();
-    Log.d("iiiiiii", str);
-    }
-    try{
-    //                        String title = response.body().getResults().get(0).getTitle();
-    //
-    //                        TextView textView = (TextView) getView().findViewById(R.id.textView);
-    //                        textView.setText(title);
-
-    mAdapter = new ArticleRecyclerViewAdapter(response.body().getResults());
-    mRecyclerView.setAdapter(mAdapter);
-
-    } catch (Exception e){
-    e.printStackTrace();
-    }
-
-    }
-
-    @Override
-    public void onFailure(Call<Articles> call, Throwable t) {
-
-    }
-    });
-     }
-     }
-     *
-     * */
 }

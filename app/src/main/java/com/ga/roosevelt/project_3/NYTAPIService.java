@@ -18,14 +18,19 @@ public interface NYTAPIService {
 
     //use @GET to get the path to the users: /users/{username}
     //then create a Call of type User to get the path, taking an input of the username
-    @GET("{section}.json?api-key=" + APIConstants.API_KEY)
+    @GET("{section}.json?api-key=" + APIConstants.TOP_STORIES_API_KEY)
     Call<Articles> getTopStories(@Path("section") String section);
 
 //    @GET("articlesearch.json?q={query}&api-key=" + APIConstants.API_KEY)
 //    Call<SearchResult> searchArticles(@Path("query") String query);
 
-    @GET("articlesearch.json?api-key=" + APIConstants.API_KEY)
+    @GET("articlesearch.json?fq=type_of_material:(!\"Letter\")&api-key=" + APIConstants.API_KEY)
     Call<SearchResult> searchArticles(@Query("q") String query);
+
+
+//    @GET("articlesearch.json?api-key=" + APIConstants.API_KEY)
+//    Call<SearchResult> searchArticles(@Query("q") String query);
+
 
 
 }
