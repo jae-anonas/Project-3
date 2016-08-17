@@ -43,7 +43,7 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleView
 
         //get image url (
         if (article.getMultimedia().size() > 2){
-            imgURL = article.getMultimedia().get(2).getUrl();
+            imgURL = article.getMultimedia().get(3).getUrl();
         }
 
         //set image
