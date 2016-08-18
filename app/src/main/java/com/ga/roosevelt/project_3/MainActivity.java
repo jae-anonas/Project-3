@@ -18,10 +18,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.FacebookActivity;
+import com.facebook.FacebookSdk;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ArticlesHome.OnFragmentInteractionListener {
+
     ViewPager pager;
+    Menu menu;
+    boolean loggedIn = false;
+
+    private void updateNavDrawer(){
+        MenuItem loginItem = menu.findItem(R.id.nav_login);
+        if(loggedIn){
+            loginItem.setTitle("Logout");
+        }
+        else{
+            loginItem.setTitle("Login");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +49,30 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Load fragment with data
-//        Fragment fragment = ArticlesHome.newInstance("home");
-//        replaceFragment(fragment);
+        invalidateOptionsMenu();
 
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
         pager = (ViewPager) findViewById(R.id.sectionViewPager);
         pager.setAdapter(new SectionPagerAdapter(getSupportFragmentManager()));
+
+        AccessTokenTracker tracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                if (currentAccessToken != null){
+                    //means user is logged in
+                    Toast.makeText(MainActivity.this, "logged in", Toast.LENGTH_SHORT).show();
+                    loggedIn = true;
+                }
+                else{
+                    //user is not logged in
+                    Toast.makeText(MainActivity.this, "NOT logged in", Toast.LENGTH_SHORT).show();
+                    loggedIn = false;
+                }
+
+            }
+        };
+        tracker.startTracking();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +93,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -69,9 +104,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+//        updateNavDrawer();
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        this.menu = menu;
         return true;
     }
 

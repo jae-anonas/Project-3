@@ -75,8 +75,7 @@ public class ArticlesHome extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
-
-        getStories(mParam1);
+//        getStories(mParam1);
 
     }
 
@@ -109,6 +108,7 @@ public class ArticlesHome extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        getStories(mParam1);
 //        mRecyclerView = (RecyclerView) getView().findViewById(R.id.articleRecyclerView);
 //        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),
 //                LinearLayoutManager.VERTICAL, false);
