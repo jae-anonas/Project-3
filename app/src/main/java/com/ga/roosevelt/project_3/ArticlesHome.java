@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.ga.roosevelt.project_3.models.Articles;
 import com.ga.roosevelt.project_3.recycler.ArticleRecyclerViewAdapter;
+import com.ga.roosevelt.project_3.services.ServiceGenerator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -164,6 +165,7 @@ public class ArticlesHome extends Fragment {
 
             //get an instance of GitHubService
             NYTAPIService service = retrofit.create(NYTAPIService.class);
+//            NYTAPIService service = ServiceGenerator.createService(NYTAPIService.class);
 
             //Get a Call of type User with the service and getUser method
             Call<Articles> storiesCall = service.getTopStories(section);
@@ -189,9 +191,7 @@ public class ArticlesHome extends Fragment {
                     } catch (Exception e){
                         e.printStackTrace();
                     }
-
                 }
-
                 @Override
                 public void onFailure(Call<Articles> call, Throwable t) {
 

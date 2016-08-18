@@ -100,6 +100,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch(id){
+            case R.id.nav_login:
+                intent = new Intent(this, LoginActivity.class);
             case R.id.nav_home:
                 pager.setCurrentItem(0, true);
                 break;
