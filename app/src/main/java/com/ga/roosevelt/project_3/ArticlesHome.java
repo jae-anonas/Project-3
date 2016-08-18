@@ -1,12 +1,14 @@
 package com.ga.roosevelt.project_3;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -97,12 +99,22 @@ public class ArticlesHome extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.articleRecyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),
+        GridLayoutManager gridLayoutManagerPortrait = new GridLayoutManager(getContext(), 2,
                 LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
+        GridLayoutManager gridLayoutManagerLandscape = new GridLayoutManager(getContext(), 3,
+                LinearLayoutManager.VERTICAL, false);
 
-        TextView textView = (TextView) view.findViewById(R.id.textView);
-        textView.setText(mParam1);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mRecyclerView.setLayoutManager(gridLayoutManagerPortrait);
+
+            TextView textView = (TextView) view.findViewById(R.id.textView);
+            textView.setText(mParam1);
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            mRecyclerView.setLayoutManager(gridLayoutManagerLandscape);
+
+            TextView textView = (TextView) view.findViewById(R.id.textView);
+            textView.setText(mParam1);
+        }
     }
 
     @Override
@@ -150,13 +162,13 @@ public class ArticlesHome extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    protected void getStories(String section){
+    protected void getStories(String section) {
 
         ConnectivityManager connMgr = (ConnectivityManager) getContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
-        if (networkInfo != null && networkInfo.isConnected()){
+        if (networkInfo != null && networkInfo.isConnected()) {
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(APIConstants.TOP_STORIES_BASE_URL)
@@ -174,12 +186,12 @@ public class ArticlesHome extends Fragment {
             storiesCall.enqueue(new Callback<Articles>() {
                 @Override
                 public void onResponse(Call<Articles> call, Response<Articles> response) {
-                    if(!response.isSuccessful()){
+                    if (!response.isSuccessful()) {
                         Toast.makeText(getContext(), "response NOT successful", Toast.LENGTH_SHORT).show();
                         String str = response.toString();
                         Log.d("iiiiiii", str);
                     }
-                    try{
+                    try {
 //                        String title = response.body().getResults().get(0).getTitle();
 //
 //                        TextView textView = (TextView) getView().findViewById(R.id.textView);
@@ -188,7 +200,7 @@ public class ArticlesHome extends Fragment {
                         mAdapter = new ArticleRecyclerViewAdapter(response.body().getResults());
                         mRecyclerView.setAdapter(mAdapter);
 
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
